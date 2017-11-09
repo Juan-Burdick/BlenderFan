@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class FanController : MonoBehaviour {
 	private Animator anim;
-	private MeshRenderer fanRenderer;
+	private Transform fanLoc;
+	private Vector3 fanHideLoc;
+	private Vector3 fanShowLoc;
 	public GameObject hideEffect;
-
+	
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
-		fanRenderer = GetComponent<MeshRenderer>();
+		fanLoc = transform.Find("newFan");
+		fanShowLoc = fanLoc.position;
+		fanHideLoc = new Vector3(0, -20f, 0);
 	}
 
 	public void DoSpin() {
@@ -19,12 +23,12 @@ public class FanController : MonoBehaviour {
 	}
 
 	public void Hide() {
-		fanRenderer.enabled = false;
+		fanLoc.position = fanHideLoc;
 		Instantiate(hideEffect, transform.position, transform.rotation);
 	}
 
 	public void Show() {
-		fanRenderer.enabled = true;
+		fanLoc.position = fanShowLoc;
 	}
 	
 	// Update is called once per frame
